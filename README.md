@@ -1,4 +1,4 @@
-#🌱 Plant Disease Recognition API
+# 🌱 Plant Disease Recognition API
 
 Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi pengguna dan analisis gambar berbasis Node.js & MySQL.
 
@@ -39,23 +39,23 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   
   mysql -u root -p < database.sql
   
-  🔧 Konfigurasi
+  ##🔧 Konfigurasi
   
   File .env wajib diisi:
   ini
   
-  # Database
+  ### Database
   DB_HOST=localhost
   DB_USER=root
   DB_PASSWORD=
   DB_NAME=plant_disease_db
   DB_PORT=3306
   
-  # JWT
+  ### JWT
   JWT_SECRET=generate_dengan_npm_run_generate:key
   JWT_EXPIRES_IN=1d
   
-  # Server
+  ### Server
   PORT=3000
   UPLOAD_FOLDER=./uploads
   
@@ -64,7 +64,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   
   npm run generate:key
   
-  🏃‍♂️ Menjalankan Aplikasi
+  ## 🏃‍♂️ Menjalankan Aplikasi
   
   Development mode (dengan hot reload):
   bash
@@ -79,7 +79,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   Aplikasi akan berjalan di:
   http://localhost:3000
 
-##📚 Dokumentasi API
+## 📚 Dokumentasi API
   Autentikasi
   Method	Endpoint	Deskripsi
   POST	/api/auth/register	Registrasi pengguna
@@ -90,7 +90,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   GET	/api/images	Lihat semua gambar user (Auth)
   POST	/api/images/analyze	Analisis penyakit (Auth)
 
-##📝 Contoh Request
+## 📝 Contoh Request
   Registrasi Pengguna
   bash
   
@@ -105,7 +105,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
     -H "Authorization: Bearer your_jwt_token" \
     -F "image=@/path/to/plant.jpg"
 
-##🏗️ Struktur Projek
+## 🏗️ Struktur Projek
 
   plant-disease-api/
   ├── config/           # Konfigurasi DB & upload
@@ -124,7 +124,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   ├── app.js            # Aplikasi utama
   └── server.js         # Entry point
 
-##🤖 Integrasi Machine Learning
+## 🤖 Integrasi Machine Learning
 
         Letakkan model ML di folder models/ml/
     
@@ -136,7 +136,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
     
     router.post('/analyze', auth, upload, imageController.analyzeImage);
 
-##📄 Lisensi
+## 📄 Lisensi
 
   MIT License © 2023 [Nama Anda]
   
