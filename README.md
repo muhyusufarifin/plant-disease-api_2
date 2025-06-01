@@ -1,148 +1,166 @@
-Plant Disease Recognition API
+markdown
 
-Node.js
-Express
-MySQL
+# 🌱 Plant Disease Recognition API
 
-Backend API untuk aplikasi pengenalan penyakit tanaman dengan kemampuan:
+Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi pengguna dan analisis gambar berbasis Node.js & MySQL.
 
-    Autentikasi pengguna
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green)
+![Express](https://img.shields.io/badge/Express-4.x-blue)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
+![JWT](https://img.shields.io/badge/JWT-Auth-purple)
 
-    Upload gambar tanaman
+## 📦 Prasyarat
 
-    Deteksi penyakit tanaman
+- Node.js v18+
+- MySQL 8.0+
+- NPM/Yarn
+- [Opsional] Laragon/XAMPP untuk development lokal
 
-    Penyimpanan data tanaman dan penyakit
+## 🚀 Panduan Instalasi
 
-🛠️ Prasyarat
-
-    Node.js v18+
-
-    MySQL 8.0+
-
-    NPM/Yarn
-
-    Laragon/XAMPP (opsional untuk development)
-
-🚀 Instalasi
-
-    Clone repositori:
-
-bash
-
+### 1. Clone Repositori
+```bash
 git clone https://github.com/username/plant-disease-api.git
 cd plant-disease-api
 
-    Install dependencies:
-
+2. Install Dependencies
 bash
 
 npm install
 
-    Buat file .env dari template:
-
+3. Setup Environment
 bash
 
 cp .env.example .env
 
-    Konfigurasi database di .env:
+Edit file .env sesuai konfigurasi lokal Anda.
+4. Setup Database
 
-env
+Jalankan perintah MySQL:
+bash
 
+mysql -u root -p < database.sql
+
+🔧 Konfigurasi
+
+File .env wajib diisi:
+ini
+
+# Database
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=
 DB_NAME=plant_disease_db
 DB_PORT=3306
 
-JWT_SECRET=your_jwt_secret_here
+# JWT
+JWT_SECRET=generate_dengan_npm_run_generate:key
 JWT_EXPIRES_IN=1d
 
+# Server
 PORT=3000
 UPLOAD_FOLDER=./uploads
 
-    Jalankan database:
-
+Generate JWT Secret Key:
 bash
 
-mysql -u root -p < database.sql
+npm run generate:key
 
-🔥 Menjalankan Aplikasi
+🏃‍♂️ Menjalankan Aplikasi
 
-Mode development (dengan hot reload):
+Development mode (dengan hot reload):
 bash
 
 npm run dev
 
-Mode production:
+Production mode:
 bash
 
 npm start
 
-Aplikasi akan berjalan di http://localhost:3000
-🌐 Endpoint API
+Aplikasi akan berjalan di:
+http://localhost:3000
+📚 Dokumentasi API
 Autentikasi
-
-    POST /api/auth/register - Registrasi pengguna baru
-
-    POST /api/auth/login - Login pengguna
-
-Gambar Tanaman
-
-    POST /api/images/upload - Upload gambar tanaman (protected)
-
-    GET /api/images - Dapatkan semua gambar pengguna (protected)
-
-    POST /api/images/analyze - Analisis penyakit tanaman (protected)
-
+Method	Endpoint	Deskripsi
+POST	/api/auth/register	Registrasi pengguna
+POST	/api/auth/login	Login pengguna
+Manajemen Gambar
+Method	Endpoint	Deskripsi
+POST	/api/images/upload	Upload gambar tanaman (Auth)
+GET	/api/images	Lihat semua gambar user (Auth)
+POST	/api/images/analyze	Analisis penyakit (Auth)
 📝 Contoh Request
-Registrasi
+Registrasi Pengguna
 bash
 
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"User Test","email":"user@test.com","password":"password123"}'
-
-Login
-bash
-
-curl -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@test.com","password":"password123"}'
+  -d '{"name":"John Doe","email":"john@example.com","password":"securePassword123"}'
 
 Upload Gambar
 bash
 
 curl -X POST http://localhost:3000/api/images/upload \
-  -H "Authorization: Bearer <token>" \
-  -F "image=@/path/to/image.jpg"
+  -H "Authorization: Bearer your_jwt_token" \
+  -F "image=@/path/to/plant.jpg"
 
-Analisis Penyakit
-bash
+🏗️ Struktur Projek
 
-curl -X POST http://localhost:3000/api/images/analyze \
-  -H "Authorization: Bearer <token>" \
-  -F "image=@/path/to/image.jpg"
+plant-disease-api/
+├── config/           # Konfigurasi DB & upload
+│   ├── db.js
+│   └── upload.js
+├── controllers/      # Logic endpoint
+│   ├── authController.js
+│   └── imageController.js
+├── middlewares/      # JWT & upload
+├── models/           # Skema database
+├── routes/           # Routing
+├── services/         # Layanan tambahan
+├── uploads/          # Penyimpanan gambar
+├── .env.example      # Template environment
+├── database.sql      # Skema database
+├── app.js            # Aplikasi utama
+└── server.js         # Entry point
 
-🧩 Struktur Projek
+🤖 Integrasi Machine Learning
 
-/plant-disease-api
-  ├── config/        # Konfigurasi database dan upload
-  ├── controllers/   # Logic endpoint API
-  ├── middlewares/   # Autentikasi dan upload
-  ├── models/        # Model database
-  ├── routes/        # Definisi route
-  ├── services/      # Service tambahan (ML)
-  ├── uploads/       # Penyimpanan gambar
-  ├── app.js         # Aplikasi utama
-  └── server.js      # Server entry point
+    Letakkan model ML di folder models/ml/
 
-🤖 Integrasi Model ML
+    Implementasi di services/mlService.js
 
-Untuk integrasi dengan model machine learning:
+    Contoh endpoint analisis:
 
-    Letakkan model TensorFlow.js di folder models/
+javascript
 
-    Update services/mlService.js
+router.post('/analyze', auth, upload, imageController.analyzeImage);
 
-    Konfigurasi preprocessing gambar sesuai kebutuhan model
+📄 Lisensi
+
+MIT License © 2023 [Nama Anda]
+
+
+### Tips untuk Tampilan GitHub yang Profesional:
+1. **Gunakan Emoji** untuk visual yang lebih menarik (daftar emoji: https://gitmoji.dev/)
+2. **Badges** dari shields.io untuk versi dependency
+3. **Format Tabel** untuk dokumentasi API
+4. **Struktur Folder** dengan tree ASCII
+5. **Highlight Syntax** untuk contoh kode
+
+### Cara Push ke GitHub:
+1. Buat file `.gitignore`:
+
+node_modules/
+.env
+uploads/
+
+
+2. Inisialisasi Git:
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/username/repo.git
+git push -u origin main
