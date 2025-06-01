@@ -39,7 +39,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   
   mysql -u root -p < database.sql
   
-  ##🔧 Konfigurasi
+  ## 🔧 Konfigurasi
   
   File .env wajib diisi:
   ini
