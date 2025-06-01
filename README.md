@@ -1,5 +1,3 @@
-markdown
-
 # 🌱 Plant Disease Recognition API
 
 Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi pengguna dan analisis gambar berbasis Node.js & MySQL.
@@ -80,7 +78,8 @@ npm start
 
 Aplikasi akan berjalan di:
 http://localhost:3000
-📚 Dokumentasi API
+
+##📚 Dokumentasi API
 Autentikasi
 Method	Endpoint	Deskripsi
 POST	/api/auth/register	Registrasi pengguna
@@ -90,7 +89,8 @@ Method	Endpoint	Deskripsi
 POST	/api/images/upload	Upload gambar tanaman (Auth)
 GET	/api/images	Lihat semua gambar user (Auth)
 POST	/api/images/analyze	Analisis penyakit (Auth)
-📝 Contoh Request
+
+##📝 Contoh Request
 Registrasi Pengguna
 bash
 
@@ -105,7 +105,7 @@ curl -X POST http://localhost:3000/api/images/upload \
   -H "Authorization: Bearer your_jwt_token" \
   -F "image=@/path/to/plant.jpg"
 
-🏗️ Struktur Projek
+##🏗️ Struktur Projek
 
 plant-disease-api/
 ├── config/           # Konfigurasi DB & upload
@@ -124,7 +124,7 @@ plant-disease-api/
 ├── app.js            # Aplikasi utama
 └── server.js         # Entry point
 
-🤖 Integrasi Machine Learning
+##🤖 Integrasi Machine Learning
 
     Letakkan model ML di folder models/ml/
 
@@ -136,7 +136,7 @@ javascript
 
 router.post('/analyze', auth, upload, imageController.analyzeImage);
 
-📄 Lisensi
+##📄 Lisensi
 
 MIT License © 2023 [Nama Anda]
 
