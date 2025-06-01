@@ -221,10 +221,10 @@ json
     "email": "string"
   }
 }
-
+```
 ## 🌿 Plant Images
-Upload Image
-
+### Upload Image
+```json
 POST /images/upload
 
 Headers:
@@ -267,10 +267,10 @@ json
     }
   ]
 }
-
+```
 ## 🔍 Disease Analysis
-Analyze Plant Disease
-
+### Analyze Plant Disease
+```json
 POST /images/analyze
 
 Headers:
@@ -299,9 +299,9 @@ json
     }
   ]
 }
-
+```
 ## 🚨 Error Responses
-
+```json
 400 Bad Request:
 json
 
@@ -333,9 +333,9 @@ json
 {
   "message": "Server error"
 }
-
+```
 ## 🔄 Example Flow
-
+```json
     Register → POST /auth/register
 
     Login → POST /auth/login (dapatkan token)
@@ -343,3 +343,4 @@ json
     Upload Image → POST /images/upload (dengan token)
 
     Analyze → POST /images/analyze (dengan token)
+```
