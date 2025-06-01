@@ -1,4 +1,4 @@
-# 🌱 Plant Disease Recognition API
+🌱 Plant Disease Recognition API
 
 Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi pengguna dan analisis gambar berbasis Node.js & MySQL.
 
