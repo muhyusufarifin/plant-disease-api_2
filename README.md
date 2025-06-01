@@ -38,6 +38,7 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   bash
   
   mysql -u root -p < database.sql
+```
   
   ## 🔧 Konfigurasi
   
@@ -157,7 +158,6 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   
   
   2. Inisialisasi Git:
-  ```bash
   git init
   git add .
   git commit -m "Initial commit"
