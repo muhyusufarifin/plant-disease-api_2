@@ -164,3 +164,182 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   git branch -M main
   git remote add origin https://github.com/username/repo.git
   git push -u origin main
+
+markdown
+
+# 📚 Plant Disease Recognition API Documentation
+
+**Base URL**: `http://localhost:3000/api`
+
+## 🔐 Authentication
+
+### Register User
+`POST /auth/register`
+
+**Request Body**:
+```json
+{
+  "name": "string",
+  "email": "string",
+  "password": "string"
+}
+
+Response Success (201):
+json
+
+{
+  "message": "User registered successfully",
+  "user": {
+    "id": "number",
+    "name": "string",
+    "email": "string",
+    "created_at": "timestamp"
+  }
+}
+
+Login User
+
+POST /auth/login
+
+Request Body:
+json
+
+{
+  "email": "string",
+  "password": "string"
+}
+
+Response Success (200):
+json
+
+{
+  "message": "Login successful",
+  "token": "string",
+  "user": {
+    "id": "number",
+    "name": "string",
+    "email": "string"
+  }
+}
+
+## 🌿 Plant Images
+Upload Image
+
+POST /images/upload
+
+Headers:
+
+    Authorization: Bearer <token>
+
+    Content-Type: multipart/form-data
+
+Request Body (form-data):
+Key	Value	Type
+image	File	File
+
+Response Success (201):
+json
+
+{
+  "message": "Image uploaded successfully",
+  "filename": "string"
+}
+
+Get User Images
+
+GET /images
+
+Headers:
+
+    Authorization: Bearer <token>
+
+Response Success (200):
+json
+
+{
+  "message": "Images retrieved successfully",
+  "images": [
+    {
+      "id": "number",
+      "user_id": "number",
+      "filename": "string",
+      "uploaded_at": "timestamp"
+    }
+  ]
+}
+
+## 🔍 Disease Analysis
+Analyze Plant Disease
+
+POST /images/analyze
+
+Headers:
+
+    Authorization: Bearer <token>
+
+    Content-Type: multipart/form-data
+
+Request Body (form-data):
+Key	Value	Type
+image	File	File
+
+Response Success (200):
+json
+
+{
+  "message": "Analysis complete",
+  "plantName": "string",
+  "diseases": [
+    {
+      "id": "number",
+      "plant_name": "string",
+      "disease_name": "string",
+      "description": "string",
+      "solution": "string"
+    }
+  ]
+}
+
+## 🚨 Error Responses
+
+400 Bad Request:
+json
+
+{
+  "message": "Validation error",
+  "errors": [
+    "Email must be valid",
+    "Password must be at least 6 characters"
+  ]
+}
+
+401 Unauthorized:
+json
+
+{
+  "message": "No token, authorization denied"
+}
+
+404 Not Found:
+json
+
+{
+  "message": "Image not found"
+}
+
+500 Internal Server Error:
+json
+
+{
+  "message": "Server error"
+}
+
+## 🔄 Example Flow
+
+    Register → POST /auth/register
+
+    Login → POST /auth/login (dapatkan token)
+
+    Upload Image → POST /images/upload (dengan token)
+
+    Analyze → POST /images/analyze (dengan token)
