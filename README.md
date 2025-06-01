@@ -51,6 +51,64 @@ Backend API untuk sistem identifikasi penyakit tanaman dengan autentikasi penggu
   DB_PASSWORD=
   DB_NAME=plant_disease_db
   DB_PORT=3306
+   ```bash
+  -- 1. Membuat database
+CREATE DATABASE IF NOT EXISTS plant_disease_db 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+-- 2. Menggunakan database
+USE plant_disease_db;
+
+-- 3. Membuat tabel users
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 4. Membuat tabel images
+CREATE TABLE IF NOT EXISTS images (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  filename VARCHAR(255) NOT NULL,
+  original_name VARCHAR(255) NOT NULL,
+  file_size INT NOT NULL,
+  mime_type VARCHAR(50) NOT NULL,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 5. Membuat tabel diseases
+CREATE TABLE IF NOT EXISTS diseases (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  plant_name VARCHAR(100) NOT NULL,
+  disease_name VARCHAR(100) NOT NULL,
+  scientific_name VARCHAR(100),
+  description TEXT,
+  symptoms TEXT,
+  causes TEXT,
+  prevention TEXT,
+  treatment TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 6. Membuat tabel analysis_history
+CREATE TABLE IF NOT EXISTS analysis_history (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  image_id INT NOT NULL,
+  disease_id INT,
+  confidence_level DECIMAL(5,2),
+  analyzed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE,
+  FOREIGN KEY (disease_id) REFERENCES diseases(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+ ```
   
   ### JWT
   JWT_SECRET=generate_dengan_npm_run_generate:key
